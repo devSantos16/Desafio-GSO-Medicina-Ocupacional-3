@@ -1,7 +1,7 @@
-USE ClienteDB;
+USE ClientesDB;
 
 Create Table Clientes (
-	idCliente int IDENTITY(1,1) PRIMARY KEY,
+	IdCliente int IDENTITY(1,1) PRIMARY KEY,
 	Nome varchar(50) NOT NULL,
 	Cpf char(11) NOT NULL,
 	DataNascimento Datetime NOT NULL)
@@ -11,18 +11,18 @@ CREATE PROCEDURE EditarCliente(@idCliente int, @Nome varchar(50), @Cpf char(11),
 	Nome = @Nome, 
 	Cpf = @Cpf, 
 	@DataNascimento = DataNascimento
-WHERE idCliente = @idCliente
+WHERE IdCliente = @IdCliente
 
 CREATE PROCEDURE InserirCliente(@Nome varchar(50), @Cpf char(11), @DataNascimento Datetime) AS
 	INSERT INTO Clientes VALUES
 	(@Nome, @Cpf, @DataNascimento)
 
-CREATE PROCEDURE ExcluirCliente(@idCliente int) AS
+CREATE PROCEDURE ExcluirCliente(@IdCliente int) AS
 	DELETE FROM Clientes
-	WHERE idCliente = @idCliente
+	WHERE IdCliente = @IdCliente
 
 CREATE VIEW ListarCliente AS
-	SELECT idCliente, 
+	SELECT IdCliente, 
 		   Nome, 
 		   Cpf, 
 		   CONVERT(varchar, DataNascimento, 3) 
@@ -30,6 +30,6 @@ CREATE VIEW ListarCliente AS
 	FROM Clientes
 
 EXEC InserirCliente 'Emanuel','99999999999', '2019-11-04'
-EXEC EditarCliente 1, 'Emanuel', '44444444444', '2019-11-04'
+EXEC EditarCliente 2, 'Emanuel', '44444444444', '2019-11-04'
 EXEC ExcluirCliente 1
 SELECT * FROM ListarCliente
